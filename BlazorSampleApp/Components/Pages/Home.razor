@@ -53,9 +53,9 @@ else
 @code {
     private List<GameSummery>? games;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        games = GameClient.GetGames();
+        games = await GameClient.GetGamesAsync();
     }
 
     private string GetDeleteGameModalId(GameSummery game)

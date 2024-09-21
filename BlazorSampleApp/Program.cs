@@ -2,6 +2,7 @@ using BlazorSampleApp.Components;
 using Microsoft.EntityFrameworkCore;
 using BlazorSampleApp.Data;
 using BlazorSampleApp.Clients;
+using BlazorSampleApp.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
@@ -15,8 +16,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<GameClient>();
-builder.Services.AddSingleton<GenreClient>();
+builder.Services.AddScoped<GameClient>();
+builder.Services.AddScoped<GenreClient>();
+builder.Services.AddScoped<Mapper>();
 
 var app = builder.Build();
 
