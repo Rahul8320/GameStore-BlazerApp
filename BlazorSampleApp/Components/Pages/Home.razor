@@ -34,7 +34,15 @@ else
                     <td class="text-end">@game.Price.ToString("C")</td>
                     <td class="text-center">@game.ReleaseDate</td>
                     <td class="text-center">
-                        <a href="/edit-game/@game.Id" role="button" class="btn btn-outline-warning">Edit</a>
+                        <div>
+                            <a href="/edit-game/@game.Id" role="button" class="btn btn-outline-warning">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <button data-bs-toggle="modal" data-bs-target="@GetDeleteGameModalId(game)" class="btn btn-outline-danger mx-2">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <DeleteGame Game="@game" />
                     </td>
                 </tr>
             }
@@ -48,5 +56,10 @@ else
     protected override void OnInitialized()
     {
         games = GameClient.GetGames();
+    }
+
+    private string GetDeleteGameModalId(GameSummery game)
+    {
+        return $"#{DeleteGame.GetModalId(game)}";
     }
 }

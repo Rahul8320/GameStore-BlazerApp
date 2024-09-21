@@ -53,7 +53,7 @@ public class GameClient
 
         GameSummery gameSummery = new()
         {
-            Id = games.Count + 1,
+            Id = GenerateRandomId(),
             Name = game.Name,
             Price = game.Price,
             Genre = genre.Name,
@@ -72,6 +72,26 @@ public class GameClient
         existingGame.Genre = genre.Name;
         existingGame.Price = updatedGame.Price;
         existingGame.ReleaseDate = updatedGame.ReleaseDate;
+    }
+
+    public void DeleteGame(int id)
+    {
+        var game = GetGameSummery(id);
+        games.Remove(game);
+    }
+
+    private static int GenerateRandomId()
+    {
+        // Get the current timestamp in milliseconds
+        long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        // Use the timestamp to seed a random number generator
+        Random random = new((int)(timestamp % int.MaxValue));
+
+        // Generate a random integer in the full int range
+        int randomId = random.Next();
+
+        return randomId;
     }
 
     private Genre GetGenreByName(string genreName)
